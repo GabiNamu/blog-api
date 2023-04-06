@@ -13,6 +13,6 @@ app.use(express.json());
 
 // ...
 
-// É importante exportar a constante `app`,
+// É importante exportar a constante `app`, oi
 // para que possa ser utilizada pelo arquivo `src/server.js`
 module.exports = app;
