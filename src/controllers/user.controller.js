@@ -14,6 +14,21 @@ const getUser = async (req, res) => {
   }
 };
 
+const createUser = async (req, res) => {
+    try {
+        const newUserToken = await userService.createUser(req.body);
+        if (newUserToken.message) {
+            return res.status(newUserToken.status)
+            .json({ message: newUserToken.message });
+        } 
+        return res.status(201).json({ token: newUserToken });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: 'internal error' });
+    }
+};
+
 module.exports = {
     getUser,
+    createUser,
 };
