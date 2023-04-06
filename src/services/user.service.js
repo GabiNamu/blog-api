@@ -11,6 +11,11 @@ const getUser = async (email, password) => {
   return token;
 };
 
+const getAllUser = async () => {
+  const users = User.findAll({ attributes: { exclude: ['password'] } });
+  return users;
+};
+
 const createUser = async (newUser) => {
   const { error } = validateUser.validate(newUser);
   if (error) return { message: error.message, status: 400 };
@@ -26,4 +31,5 @@ const createUser = async (newUser) => {
 module.exports = {
     getUser,
     createUser,
+    getAllUser,
 };

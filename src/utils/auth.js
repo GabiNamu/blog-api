@@ -12,6 +12,13 @@ const generateToken = (payload) => {
     return token;
 };
 
+const validateToken = (token) => {
+  if (!token) return { message: 'Token not found' };
+  const isValid = jwt.verify(token, secretkey);
+  return isValid;
+};
+
 module.exports = {
     generateToken,
+    validateToken,
 };
