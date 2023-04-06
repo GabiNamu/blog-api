@@ -7,6 +7,11 @@ const validateUser = Joi.object({
     image: Joi.string(),
 });
 
+const validateCategory = Joi.object({
+    name: Joi.string().required(),
+});
+
 module.exports = {
     validateUser,
+    validateCategory,
 };
