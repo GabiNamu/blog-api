@@ -60,10 +60,22 @@ const removePostById = async (req, res) => {
        }
 };
 
+const findAllPostsByQuery = async (req, res) => {
+    try {
+    const { q } = req.query;
+      const posts = await postService.findAllPostsByQuery(q);
+      return res.status(200).json(posts);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ message: ERROR });
+    }
+  };
+
 module.exports = {
     createNewPost,
     getAllPosts,
     getPostById,
     updatePostById,
     removePostById,
+    findAllPostsByQuery,
 };

@@ -1,4 +1,6 @@
 const { Sequelize } = require('sequelize');
+
+const { Op } = Sequelize;   
 const config = require('../config/config');
 
 const env = process.env.NODE_ENV || 'development';
@@ -82,10 +84,23 @@ const removePostById = async (id, user) => {
     return remove;
 };
 
+const findAllPostsByQuery = async (query) => {
+    const posts = await BlogPost.findAll({ where: {
+        [Op.or]: [{ title: { [Op.like]: `%${query}%` } }, 
+        { content: { [Op.like]: `%${query}%` } }],
+    },
+    include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } }, 
+        { model: Category, as: 'categories', through: { attributes: [] } }],
+});
+    return posts;
+};
+
 module.exports = {
     createNewPost,
     getAllPosts,
     getPostById,
     updatePostById,
     removePostById,
+    findAllPostsByQuery,
 };
