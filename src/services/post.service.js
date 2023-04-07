@@ -72,9 +72,20 @@ const getPost = await getPostById(id);
   return getPost;
 };
 
+const removePostById = async (id, user) => {
+    const getPost = await getPostById(id);
+    if (getPost.message) return { message: 'Post does not exist', status: 404 };
+    if (user.id !== Number(getPost.dataValues.user.id)) { 
+        return { message: 'Unauthorized user', status: 401 }; 
+}
+    const remove = await BlogPost.destroy({ where: { id } });
+    return remove;
+};
+
 module.exports = {
     createNewPost,
     getAllPosts,
     getPostById,
     updatePostById,
+    removePostById,
 };

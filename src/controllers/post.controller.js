@@ -1,5 +1,7 @@
 const { postService } = require('../services');
 
+const ERROR = 'internal error';
+
 const createNewPost = async (req, res) => {
     try {
         const post = await postService.createNewPost(req.body, req.user);
@@ -7,7 +9,7 @@ const createNewPost = async (req, res) => {
         return res.status(201).json(post);
        } catch (err) {
            console.log(err);
-           return res.status(500).json({ message: 'internal error' });
+           return res.status(500).json({ message: ERROR });
        }
 };
 
@@ -17,7 +19,7 @@ const getAllPosts = async (req, res) => {
         return res.status(200).json(post);
        } catch (err) {
            console.log(err);
-           return res.status(500).json({ message: 'internal error' });
+           return res.status(500).json({ message: ERROR });
        }
 };
 
@@ -29,7 +31,7 @@ const getPostById = async (req, res) => {
         return res.status(200).json(post);
        } catch (err) {
            console.log(err);
-           return res.status(500).json({ message: 'internal error' });
+           return res.status(500).json({ message: ERROR });
        }
 };
 
@@ -42,7 +44,19 @@ const updatePostById = async (req, res) => {
         return res.status(200).json(post);
        } catch (err) {
            console.log(err);
-           return res.status(500).json({ message: 'internal error' });
+           return res.status(500).json({ message: ERROR });
+       }
+};
+
+const removePostById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const post = await postService.removePostById(id, req.user);
+        if (post.message) return res.status(post.status).json({ message: post.message });
+        return res.status(204).end();
+       } catch (err) {
+           console.log(err);
+           return res.status(500).json({ message: ERROR });
        }
 };
 
@@ -51,4 +65,5 @@ module.exports = {
     getAllPosts,
     getPostById,
     updatePostById,
+    removePostById,
 };
