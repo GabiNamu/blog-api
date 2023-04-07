@@ -1,5 +1,7 @@
 const { userService } = require('../services');
 
+const ERROR = 'internal error';
+
 const getUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -10,7 +12,7 @@ const getUser = async (req, res) => {
     return res.status(200).json({ token: userToken });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ message: 'internal error' });
+    return res.status(500).json({ message: ERROR });
   }
 };
 
@@ -20,7 +22,7 @@ const getAllUser = async (req, res) => {
     return res.status(200).json(users);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ message: 'internal error' });
+    return res.status(500).json({ message: ERROR });
   }
 };
 
@@ -32,7 +34,7 @@ const getUserById = async (req, res) => {
     return res.status(200).json(user);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ message: 'internal error' });
+    return res.status(500).json({ message: ERROR });
   }
 };
 
@@ -46,8 +48,18 @@ const createUser = async (req, res) => {
         return res.status(201).json({ token: newUserToken });
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ message: 'internal error' });
+        return res.status(500).json({ message: ERROR });
     }
+};
+
+const removeUser = async (req, res) => {
+  try {
+     await userService.removeUser(req.user);
+    return res.status(204).end();
+} catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: ERROR });
+}
 };
 
 module.exports = {
@@ -55,4 +67,5 @@ module.exports = {
     createUser,
     getAllUser,
     getUserById,
+    removeUser,
 };
