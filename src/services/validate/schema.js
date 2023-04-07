@@ -19,8 +19,14 @@ const validatePost = Joi.object({
     'string.required': 'Some required fields are missing',
   });
 
+const validateUpdatePost = Joi.object({
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+});
+
 module.exports = {
     validateUser,
     validateCategory,
     validatePost,
+    validateUpdatePost,
 };

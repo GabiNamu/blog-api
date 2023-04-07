@@ -4,7 +4,7 @@ const config = require('../config/config');
 const env = process.env.NODE_ENV || 'development';
 const sequelize = new Sequelize(config[env]);
 const { PostCategory, BlogPost, Category, User } = require('../models');
-const { validatePost } = require('./validate/schema');
+const { validatePost, validateUpdatePost } = require('./validate/schema');
 
 const findCategories = async (ids) => {
     const category = await Category.findAndCountAll({ where: { id: ids } });
@@ -60,8 +60,21 @@ const getPostById = async (id) => {
     return post;
 };
 
+const updatePostById = async ({ title, content }, id, user) => {
+  if (user.id !== +id) return { message: 'Unauthorized user', status: 401 };
+  const { error } = validateUpdatePost.validate({ title, content });
+  if (error) return { message: 'Some required fields are missing', status: 400 };
+   await BlogPost.update(
+{ title, content, updated: new Date() }, 
+{ where: { id } },
+);
+const getPost = await getPostById(id);
+  return getPost;
+};
+
 module.exports = {
     createNewPost,
     getAllPosts,
     getPostById,
+    updatePostById,
 };
