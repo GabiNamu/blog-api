@@ -1,13 +1,19 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+# Blog API
+Blog API was a project made for study purpose and it was my first time using Sequelize and JWT(JSON WEB TOKEN).
+### In this project I:
+- developed an RESTful API and a SQL database to produce content for a blog;
+- developed an application in Node.js using the sequelize package to make a CRUD of posts:
+  1. To make a post, you need a user and a login, so the relationship between user and post will be worked on, and I used JWT for user authentication;
+  2. It will be necessary to use categories for posts, thus working on the relationship of posts to categories and categories to posts;
+  
+### Main technologies:
+- Docker;
+- JavaScript;
+- Node.js;
+- Express;
+- MySql.
+- Sequelize;
+- JWT;
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
-
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+## Contributors: 
+I made the src folder and all the content inside it. the other files were made by Trybe.
